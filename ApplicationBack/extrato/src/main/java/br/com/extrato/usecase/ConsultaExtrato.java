@@ -19,18 +19,25 @@ import br.com.extrato.domain.model.ExtratoView;
 public class ConsultaExtrato {
 
 	public ExtratoView executa() throws IOException {
-		String caminho = "src\\main\\resources\\massa\\lancamento-conta-legado.json";
 		
-		
-		String json= String.join(" ",
-                Files.readAllLines(
-                		Paths.get(caminho),
-                        StandardCharsets.UTF_8)
-        );
-		JSONObject jsonObject = new JSONObject(json);
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
-		ExtratoView extrato = mapper.readValue(jsonObject.toString(), ExtratoView.class);
+		
+		ExtratoView extrato = mapper.readValue(converterArquivoEmJSON().toString(), ExtratoView.class);
 		return extrato;
+	}
+
+	private JSONObject converterArquivoEmJSON() {
+		JSONObject jsonObject = new JSONObject();
+		try {
+			String caminho = "src\\main\\resources\\massa\\lancamento-conta-legado.json";
+
+			String json = String.join(" ", Files.readAllLines(Paths.get(caminho), StandardCharsets.UTF_8));
+			jsonObject = new JSONObject(json);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return jsonObject;
 	}
 }
