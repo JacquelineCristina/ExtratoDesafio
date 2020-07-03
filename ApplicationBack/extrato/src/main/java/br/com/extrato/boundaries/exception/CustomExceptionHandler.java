@@ -27,4 +27,10 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<>(new Erro("", "Ocorreu um Erro para consultar o Extrato, tente novamente"),
 				HttpStatus.BAD_REQUEST);
 	}
+	
+	@ExceptionHandler(ErroArquivoNaoEncontradoException.class)
+	public final ResponseEntity<Erro> tratarErroArquivoNaoEncontrado() {
+		return new ResponseEntity<>(new Erro("", "Ocorreu um Erro para consultar o Extrato, tente novamente"),
+				HttpStatus.NOT_FOUND);
+	}
 }

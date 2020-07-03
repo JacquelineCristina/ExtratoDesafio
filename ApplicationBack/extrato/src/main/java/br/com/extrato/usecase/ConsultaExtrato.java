@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.core.JsonParser.Feature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.com.extrato.boundaries.exception.ErroArquivoNaoEncontradoException;
+import br.com.extrato.boundaries.exception.ErroConversaoArquivoParaJsonException;
 import br.com.extrato.domain.model.ExtratoView;
 
 @Component
@@ -31,12 +33,14 @@ public class ConsultaExtrato {
 		JSONObject jsonObject = new JSONObject();
 		try {
 			String caminho = "src\\main\\resources\\massa\\lancamento-conta-legado.json";
-
+			if(Paths.get(caminho).toString().equals("")) {
+				throw new ErroArquivoNaoEncontradoException("Não foi possivel encontrar o arquivo");
+			}
 			String json = String.join(" ", Files.readAllLines(Paths.get(caminho), StandardCharsets.UTF_8));
 			jsonObject = new JSONObject(json);
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			throw new ErroConversaoArquivoParaJsonException("Erro na tentativa de leitura do arquivo");
 		}
 		return jsonObject;
 	}
