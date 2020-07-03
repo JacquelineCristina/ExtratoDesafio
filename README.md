@@ -22,11 +22,13 @@ Configuração para executar o projeto(FRONT)
  Para executar o serviço localmente:
  
  Dentro da pasta ApplicationFront, com o angular instalado, abrir o bash e digitar os seguintes comandos na ordem abaixo:
-  > npm instal
-  > ng serve
+  -> npm instal
+  -> ng serve
   
  Será publicado na porta 4200 do localhost, para efetuar o teste, acessar direto do navegador:
  
   -> http://localhost:4200
+  
+  
  
  
